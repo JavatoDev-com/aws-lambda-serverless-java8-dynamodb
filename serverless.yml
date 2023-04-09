@@ -1,0 +1,77 @@
+service: aws-lambda-serverless-crud-java
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: java8
+  stage: development
+  region: us-west-2
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:BatchGetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - !GetAtt AuthorDynamoDBTable.Arn
+
+  environment:
+    REGION: ${opt:region, self:provider.region}
+    AUTHOR_TABLE: javatodev-author-${opt:stage, self:provider.stage}
+
+resources:
+  Resources:
+    AuthorDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: "id"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+        StreamSpecification:
+          StreamViewType: "NEW_AND_OLD_IMAGES"
+        TableName: ${self:provider.environment.AUTHOR_TABLE}
+
+package:
+  artifact: build/distributions/aws-serverless-crud-java.zip
+
+functions:
+  base_api:
+    handler: com.serverless.Handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+  author_registration:
+    handler: com.serverless.author.RegistrationHandler
+    events:
+      - httpApi:
+          path: /authors/registration
+          method: post
+  author_reads:
+    handler: com.serverless.author.ReadHandler
+    events:
+      - httpApi:
+          path: /authors
+          method: get
+  author_update:
+    handler: com.serverless.author.UpdateHandler
+    events:
+      - httpApi:
+          path: /authors/{id}
+          method: patch
+  author_delete:
+    handler: com.serverless.author.DeleteHandler
+    events:
+      - httpApi:
+          path: /authors/{id}
+          method: delete

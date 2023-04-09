@@ -1,0 +1,14 @@
+GET https://16u44knrwj.execute-api.us-west-2.amazonaws.com?findAll=true
+###
+POST https://16u44knrwj.execute-api.us-west-2.amazonaws.com/authors/registration
+Content-Type: application/json
+
+{
+  "firstName": "Chinthaka",
+  "lastName": "Dinadasa",
+  "email": "randomemail@gmail.com",
+  "identificationNumber": "901399356V"
+}
+
+###
+GET https://16u44knrwj.execute-api.us-west-2.amazonaws.com/authors
