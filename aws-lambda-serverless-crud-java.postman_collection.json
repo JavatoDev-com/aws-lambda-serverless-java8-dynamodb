@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "659c975b-dc47-46fe-b7f6-38d6ee523f2f",
+		"name": "aws-lambda-serverless-crud-java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24962357"
+	},
+	"item": [
+		{
+			"name": "BASE API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://d7urkqkav4.execute-api.us-west-2.amazonaws.com/",
+					"protocol": "https",
+					"host": [
+						"d7urkqkav4",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE_AUTHOR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"identificationNumber\": \"{{$guid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://d7urkqkav4.execute-api.us-west-2.amazonaws.com//authors/registration",
+					"protocol": "https",
+					"host": [
+						"d7urkqkav4",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"",
+						"authors",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ_AUTHORS_FILTERED",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://d7urkqkav4.execute-api.us-west-2.amazonaws.com/authors?id=1f9a4806-d71e-42ec-b004-fe47dcdf2ba3",
+					"protocol": "https",
+					"host": [
+						"d7urkqkav4",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"authors"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1f9a4806-d71e-42ec-b004-fe47dcdf2ba3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ_ALL_AUTHORS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://d7urkqkav4.execute-api.us-west-2.amazonaws.com/authors?findAll=true",
+					"protocol": "https",
+					"host": [
+						"d7urkqkav4",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"authors"
+					],
+					"query": [
+						{
+							"key": "findAll",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE_AUTHOR",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"identificationNumber\": \"{{$guid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://d7urkqkav4.execute-api.us-west-2.amazonaws.com/authors/1f9a4806-d71e-42ec-b004-fe47dcdf2ba3",
+					"protocol": "https",
+					"host": [
+						"d7urkqkav4",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"authors",
+						"1f9a4806-d71e-42ec-b004-fe47dcdf2ba3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE_AUTHOR",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://16u44knrwj.execute-api.us-west-2.amazonaws.com/authors/ee5ca2ec-2b68-409c-8830-fce7bc25a238",
+					"protocol": "https",
+					"host": [
+						"16u44knrwj",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"authors",
+						"ee5ca2ec-2b68-409c-8830-fce7bc25a238"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
