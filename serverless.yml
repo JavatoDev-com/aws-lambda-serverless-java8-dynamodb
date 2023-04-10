@@ -8,6 +8,12 @@ provider:
   stage: development
   region: us-west-2
 
+  # ENVIRONMENT VARIABLES
+  environment:
+    REGION: ${opt:region, self:provider.region}
+    AUTHOR_TABLE: javatodev-author-${opt:stage, self:provider.stage}
+
+  # IAM ROLES TO ACCESS DYNAMODB TABLES
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -20,10 +26,6 @@ provider:
         - dynamodb:DeleteItem
       Resource:
         - !GetAtt AuthorDynamoDBTable.Arn
-
-  environment:
-    REGION: ${opt:region, self:provider.region}
-    AUTHOR_TABLE: javatodev-author-${opt:stage, self:provider.stage}
 
 resources:
   Resources:

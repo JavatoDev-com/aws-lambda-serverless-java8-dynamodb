@@ -47,4 +47,14 @@ public class AuthorDto {
     public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
+
+    @Override public String toString() {
+        return "AuthorDto{" +
+            "id='" + id + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", identificationNumber='" + identificationNumber + '\'' +
+            '}';
+    }
 }

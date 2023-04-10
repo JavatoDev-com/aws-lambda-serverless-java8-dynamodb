@@ -8,9 +8,12 @@ import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
+import com.serverless.Handler;
 import com.serverless.model.AuthorDto;
 import com.serverless.model.CommonAPIResponse;
 import com.serverless.util.RequestConversionUtil;
+
+import org.apache.log4j.Logger;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,14 +22,15 @@ import java.util.UUID;
 
 public class RegistrationHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
+    private static final Logger LOG = Logger.getLogger(RegistrationHandler.class);
     private AmazonDynamoDB amazonDynamoDB;
-
     private String AUTHOR_DB_TABLE = System.getenv("AUTHOR_TABLE");
     private Regions REGION = Regions.fromName(System.getenv("REGION"));
 
     @Override public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         RequestConversionUtil requestConversionUtil = new RequestConversionUtil();
         AuthorDto request = requestConversionUtil.parseRequestBody(input.get("body").toString(), AuthorDto.class);
+        LOG.info("Incoming author registration request "+request.toString());
         this.initDynamoDbClient();
         persistData(request);
         return ApiGatewayResponse.builder()

@@ -32,7 +32,7 @@ public class ReadHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
         this.initDynamoDbClient();
         Map<String, String> queryParams = input.getQueryStringParameters();
 
-        if (queryParams.containsKey("findAll") && Boolean.parseBoolean(queryParams.get("findAll"))) {
+        if (queryParams != null && queryParams.containsKey("findAll") && Boolean.parseBoolean(queryParams.get("findAll"))) {
 
             //Find All
             Map<String, AttributeValue> lastKeyEvaluated = null;
@@ -53,7 +53,7 @@ public class ReadHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
                 .setHeaders(Collections.singletonMap("Content-Type", "application/json"))
                 .setObjectBody(authorDtos).setStatusCode(200).build();
 
-        } else if (queryParams.containsKey("id") && queryParams.get("id") != null) {
+        } else if (queryParams!= null && queryParams.containsKey("id") && queryParams.get("id") != null) {
 
             //Find by id
             Map<String, AttributeValue> attributesMap = new HashMap<>();
